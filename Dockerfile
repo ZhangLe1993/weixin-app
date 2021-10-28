@@ -10,9 +10,8 @@ ENV active $ACTIVE
 
 COPY pom.xml .
 
-COPY pom.xml .
+COPY src ./src
 
 RUN mvn package -DskipTests
-
 
 CMD ["java", "-Dfile.encoding=utf-8", "-Dserver.port=8080", "-jar", "/home/app/target/weixin-app-0.0.1-SNAPSHOT.jar"]
