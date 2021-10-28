@@ -4,14 +4,15 @@ FROM docker.io/zhangyule1993/java-base:v1.0.0
 # 设置容器编码格式
 ENV LC_ALL "zh_CN.UTF-8"
 
+WORKDIR /home/app
+
 ENV active $ACTIVE
 
-COPY deploy.sh /home/deploy.sh
+COPY pom.xml .
 
-COPY /out/app.jar /home/app.jar
+COPY pom.xml .
 
-COPY settings.xml /home/settings.xml
+RUN mvn package -DskipTests
 
-WORKDIR /home
 
-CMD ["sh", "deploy.sh"]
+CMD ["java", "-Dfile.encoding=utf-8", "-Dserver.port=8080", "-jar", "/home/app/target/weixin-app-0.0.1-SNAPSHOT.jar"]
